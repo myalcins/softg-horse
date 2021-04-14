@@ -16,15 +16,15 @@ class TCPServer(BaseSocket):
     def configure_server(self):
         try:
             self.socket.bind((self.host, self.port))
-        except OSError as e:
-            print(e)
+        except:
+            print("server configuration error.")
 
     def start_server(self):
         self.start_socket()
         try:
             self.configure_server()
-        except OSError as e:
-            print(e)
+        except:
+            print("server running error.")
 
     def serve(self):
         try:
@@ -36,11 +36,12 @@ class TCPServer(BaseSocket):
                     client, address = self.socket.accept()
                     print(f"Connected at {address}")
                     Thread(target=self.RequestHandler, args=(client,), daemon=False).start()
-                except error as e:
+                except:
                     self.socket.close()
-        except OSError as e:
-            print(e)
         except KeyboardInterrupt as key:
                 self.socket.close()
                 print("Quit the server with keyboard interrupt.")
                 exit(1)
+        except:
+            print("server serving error.")
+        

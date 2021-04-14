@@ -1,7 +1,6 @@
-from core.tcp_server import TCPServer
-from utils.utils import http_to_environ, to_environ, wsgi_to_bytes, parser
+from .base.tcp_server import TCPServer
+from .utils.utils import http_to_environ, to_environ, wsgi_to_bytes, parser
 from datetime import datetime
-from wsgi import app   
 
 
 class WSGIServer:
@@ -20,11 +19,16 @@ class WSGIServer:
         self.server.serve()
 
     def request_handle(self, client):
-        self.client = client
-        request = self.client.recv(1024).decode()
-        env = http_to_environ(request, to_environ)
-        response = self.application(env, self.start_response)
-        self.complete_request(response)
+        try:
+            self.client = client
+            request = self.client.recv(1024).decode()
+            env = http_to_environ(request, to_environ)
+            response = self.application(env, self.start_response)
+            self.complete_request(response)
+        except:
+            print("request handler error.")
+        finally:
+            self.client.close()
 
     def complete_request(self, responses):
         res = self.create_response()
@@ -47,11 +51,6 @@ class WSGIServer:
         
     def start_response(self, status, headers):
         self.response_header = [status, headers]
-
-
-serv = WSGIServer("localhost:8000" ,app)
-serv.run()
-
 
 
 

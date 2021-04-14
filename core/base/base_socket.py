@@ -11,8 +11,8 @@ class BaseSocket(object):
     def create_socket(self):
         try:
             self.socket = socket(self._addr_family, self._socket_type)
-        except OSError as e:
-            print(e)
+        except:
+            print("socket creating error.")
 
     def close_socket(self):
         if self.socket:
@@ -22,11 +22,11 @@ class BaseSocket(object):
         try:
             self.socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         except OSError as e:
-            print(e)
+            print("socket configuration error.")
         
     def start_socket(self):
         try:
             self.create_socket()
             self.conf_socket()
-        except OSError as e:
-            print(e, "Server couldn't start..")
+        except:
+            print("socket couldn't start..")

@@ -2,7 +2,6 @@ from core import server
 import sys, importlib
 
 
-
 def get_app():
     app = importlib.import_module(sys.argv[2].split(':')[0])
     app = app.__getattribute__(sys.argv[2].split(':')[1])

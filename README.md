@@ -1,0 +1,3 @@
+# softg-horse
+
+That's a simple WSGI server, still developing...

@@ -10,7 +10,7 @@ class BaseSocket(object):
 
     def create_socket(self):
         try:
-            self.socket = socket(self._addr_family, self._socket_type)
+            self.socket = socket(self.__addr_family, self.__socket_type)
         except:
             print("socket creating error.")
 

@@ -8,8 +8,8 @@ class TCPServer(BaseSocket):
     port = 8080
     
     def __init__(self, RequestHandler):
-        self.__addr_family = AF_INET
-        self.__socket_type = SOCK_STREAM
+        self._addr_family = AF_INET
+        self._socket_type = SOCK_STREAM
         self.request_queue_size = 1024
         self.RequestHandler = RequestHandler
 
